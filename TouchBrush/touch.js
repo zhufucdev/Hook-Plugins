@@ -76,9 +76,14 @@ function isColorVisible(color) {
     return true
 }
 
+function actualColor(ele) {
+    const v = ele.ownerDocument.defaultView
+    return v.getComputedStyle(ele).getPropertyValue('color')
+}
+
 function findTarget(root) {
     function through(target) {
-        if (typeof target.style === 'undefined' || isColorVisible(target.style.color)) {
+        if (typeof target.style === 'undefined' || isColorVisible(actualColor(target))) {
             if (target.parentElement === null) {
                 return undefined
             }
