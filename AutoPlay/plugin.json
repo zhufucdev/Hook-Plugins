@@ -1,0 +1,23 @@
+{
+    "name": "AutoPlay",
+    "author": "zhufucdev",
+    "version": "2.1",
+    "description": "Surprise your teacher",
+    "embed": "autoplay.js",
+    "dependsOn": "FitZoom",
+    "settings": {
+        "auto_pattern": {
+            "title": "自动播放文件匹配",
+            "description": "仅选择文件名匹配该正则表达式的文件用于自动播放",
+            "type": "string",
+            "icon": "filter"
+        },
+        "max_items": {
+            "title": "最大文件数量",
+            "description": "快捷方式显示文件的最大数量",
+            "type": "int",
+            "range": "[1, 10]",
+            "icon": "document"
+        }
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "name": "TouchBrush",
+    "description": "Brush with touch",
+    "author": "zhufucdev",
+    "embedded": "touch.js",
+    "version": "0.1 pre-release"
+}
