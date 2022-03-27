@@ -1,6 +1,6 @@
 (function(){
     const host = plugin.settings.get('remote')
-    httpAsString('http://' + host + '/list', (r) => {
+    httpAsString(host + '/list', (r) => {
         if (typeof r === 'string') {
             let list = JSON.parse(r)
 
