@@ -18,6 +18,12 @@
             "type": "int",
             "range": "[1, 10]",
             "icon": "document"
+        },
+        "remote": {
+            "title": "远程服务器地址",
+            "description": "提供用于播放文件的Http服务器",
+            "type": "string",
+            "icon": "savelocal"
         }
     }
 }
