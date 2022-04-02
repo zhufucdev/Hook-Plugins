@@ -32,7 +32,7 @@
                         rename = latestFile
                     }
                 }
-                download('http://' + host + '/' + uri, rename, (path) => {
+                download(host + '/' + uri, rename, (path) => {
                     if (typeof path === 'string') {
                         c(path);
         
@@ -51,7 +51,7 @@
                 let file = list[i]
 
                 plugin.createShortcut(file.name, "机器人托管的文件", (p, c) => {
-                    download('http://' + host + '/query/' + file.name, file.name, (path) => {
+                    download(host + '/query/' + file.name, file.name, (path) => {
                         if (typeof path === 'string') {
                             c(path)
                         } else {
