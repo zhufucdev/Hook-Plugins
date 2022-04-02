@@ -3,7 +3,7 @@
     let fileToPlay;
     httpAsString(host + '/list', (r) => {
         if (typeof r === 'string') {
-            let list = JSON.parse(r)
+            let list = JSON.parse(r).sort((a, b) => b.modified - a.modified)
 
             plugin.createShortcut("最近的云端文档", "自动播放", "play", (p, c) => {
                 const dt = new Date()
@@ -16,13 +16,11 @@
                     uri = "latest"
                 } else {
                     const regex = new RegExp(autoPattern);
-                    let maxDate = 0
                     let latestFile = ""
                     for (let i in list) {
                         const file = list[i]
-                        if (regex.test(file.name) && file.modified > maxDate) {
+                        if (regex.test(file.name)) {
                             latestFile = file.name
-                            maxDate = file.modified
                         }
                     }
                     if (latestFile === "") {
@@ -40,7 +38,7 @@
                             fileToPlay = path
                         });
                     } else if (typeof path === 'number') {
-                        showInfoBar("AutoPlay", "无法打开最近的文档: Http " + path)
+                        showInfoBar("AutoPlay", "无法打开最近的文档: Http " + path, "error")
                         c()
                     }
                 })
@@ -55,14 +53,14 @@
                         if (typeof path === 'string') {
                             c(path)
                         } else {
-                            showInfoBar("AutoPlay", "无法下载" + file.name + ": "+ path)
+                            showInfoBar("AutoPlay", "无法下载" + file.name + ": "+ path, "error")
                             c()
                         }
                     })
                 })
             }
         } else if (typeof r === 'number') {
-            showInfoBar("AutoPlay", "无法获取文件列表: Http " + r)
+            showInfoBar("AutoPlay", "无法获取文件列表: Http " + r, "error")
         }
     })
 
