@@ -105,3 +105,7 @@ function autoplay() {
         setTimeout(startRolling, i)
     }
 }
+
+setTimeout(() => {
+    scrolling.scrollTop = 0
+})
