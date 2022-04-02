@@ -1,7 +1,7 @@
 {
     "name": "AutoPlay",
     "author": "zhufucdev",
-    "version": "2.1",
+    "version": "2.2",
     "description": "Surprise your teacher",
     "embed": "autoplay.js",
     "dependsOn": "FitZoom",
