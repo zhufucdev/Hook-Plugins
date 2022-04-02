@@ -1,5 +1,6 @@
 (function(){
     const host = plugin.settings.get('remote')
+    let fileToPlay;
     httpAsString(host + '/list', (r) => {
         if (typeof r === 'string') {
             let list = JSON.parse(r)
@@ -36,9 +37,7 @@
                         c(path);
         
                         addEventListener("documentLoaded", (v) => {
-                            if (v.info.path == path) {
-                                v.runEmbedded("autoplay")
-                            }
+                            fileToPlay = path
                         });
                     } else if (typeof path === 'number') {
                         showInfoBar("AutoPlay", "无法打开最近的文档: Http " + path)
@@ -64,6 +63,13 @@
             }
         } else if (typeof r === 'number') {
             showInfoBar("AutoPlay", "无法获取文件列表: Http " + r)
+        }
+    })
+
+    addEventListener('documentLoaded', (v) => {
+        v.runEmbedded('autoplay')
+        if (v.info.path == fileToPlay) {
+            v.runScript("autoplay")
         }
     })
 })()

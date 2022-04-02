@@ -1,16 +1,25 @@
-const displayHTML = `
-<style>
-    .timer {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-    }
-</style>
-<h3 class="timer"></h3>
-`
+(function() {
+    const displayHTML = `
+    <style>
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+        }
+    </style>
+    <h3 class="timer"></h3>
+    `
+    const autoplayHTML = `
+    <a class="play-button" href="#" onclick="javascript:startRolling()">自动播放</a>
+    `
 
-document.body.insertAdjacentHTML("beforebegin", displayHTML)
-const display = document.querySelector('.timer')
+    document.body.insertAdjacentHTML("beforebegin", displayHTML)
+    document.body.insertAdjacentHTML("beforeend", autoplayHTML)
+})()
+
+const display = document.querySelector('.timer'),
+    playBtn = document.querySelector('.play-button')
+
 function setDisplay(remaining) {
     display.textContent = "剩余" + remaining + "s"
 }
@@ -49,6 +58,8 @@ const duration = 7 * 60, delta = height * 10 / duration
 const counts = parseInt(height / delta)
 
 function startRolling() {
+    playBtn.remove()
+
     let timer, s = 0, count = 0
 
     timer = setInterval(() => {
@@ -69,26 +80,28 @@ function startRolling() {
     })
 }
 
-let i, dt = new Date();
-if (dt.getDay() % 2 != 0 || dt.getDay() == 0) {
-    i = (6 - dt.getHours()) * 60 * 60 + (30 - dt.getMinutes()) * 60 - dt.getSeconds()
-}
-else {
-    i = (7 - dt.getHours()) * 60 * 60 + (30 - dt.getMinutes()) * 60 - dt.getSeconds()
-}
-if (i <= 0) {
-    startRolling()
-}
-else {
-    let timer, countdown = i;
-    timer = setInterval(() => {
-        countdown --
-        if (countdown < 0) {
-            clearInterval(timer)
-            return
-        }
-        setDisplay(countdown)
-    }, 1000)
-    i *= 1000
-    setTimeout(startRolling, i)
+function autoplay() {
+    let i, dt = new Date();
+    if (dt.getDay() % 2 != 0 || dt.getDay() == 0) {
+        i = (6 - dt.getHours()) * 60 * 60 + (30 - dt.getMinutes()) * 60 - dt.getSeconds()
+    }
+    else {
+        i = (7 - dt.getHours()) * 60 * 60 + (30 - dt.getMinutes()) * 60 - dt.getSeconds()
+    }
+    if (i <= 0) {
+        startRolling()
+    }
+    else {
+        let timer, countdown = i;
+        timer = setInterval(() => {
+            countdown --
+            if (countdown < 0) {
+                clearInterval(timer)
+                return
+            }
+            setDisplay(countdown)
+        }, 1000)
+        i *= 1000
+        setTimeout(startRolling, i)
+    }
 }
