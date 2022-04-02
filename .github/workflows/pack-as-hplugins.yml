@@ -29,6 +29,8 @@ jobs:
       - name: Zip all subdirectories
         run: bash pack.sh
       
-      - uses: actions/upload-artifact@v3.0.0
-        name: Upload HPlugins
-        path: Package
+      - name: Upload HPlugins
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: HPlugins
+          path: Package
